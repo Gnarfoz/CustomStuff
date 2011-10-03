@@ -143,12 +143,17 @@ local function OnEvent(self, event, ...)
 	    end
 	    if (select(1,...)) == "_CustomStuff" then
 	        DoCustomStuff()
-	        TalentCheck(GetActiveTalentGroup())
 	    end
     end
 end
 
+local function OnUpdate()
+	TalentCheck(GetActiveTalentGroup())
+	GnarfozCustomStuff:SetScript("OnUpdate", nil)
+end
+
 GnarfozCustomStuff = CreateFrame("Frame")
+GnarfozCustomStuff:SetScript("OnUpdate", OnUpdate)
 GnarfozCustomStuff:SetScript("OnEvent", OnEvent)
 GnarfozCustomStuff:RegisterEvent("ADDON_LOADED")
 GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
