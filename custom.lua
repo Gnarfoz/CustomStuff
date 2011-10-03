@@ -1,5 +1,13 @@
 -- alte CLCinfo-Rotation: inqa inqr cs tv exo how j hw cons
 
+local function TalentCheck(talent)
+    if talent == 1 then
+        GnarfozCustomStuff:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	else
+	    GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+    end
+end
+
 local function DoCustomStuff()
 --[[if IsAddOnLoaded("EavesDrop") then
 	EavesDropFrame:SetBackdrop(nil)
@@ -125,12 +133,7 @@ local function OnEvent(self, event, ...)
 ]]
         end
 	elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then
-	    local talent = GetActiveTalentGroup()
-	    if talent == 1 then
-            GnarfozCustomStuff:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-		else
-		    GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	    end
+	    TalentCheck(GetActiveTalentGroup())
 	elseif event == "ADDON_LOADED" then
 	    if (select(1,...)) == "LockSmith" then
 	        LockSmithButton:SetScale(0.7)
@@ -140,6 +143,7 @@ local function OnEvent(self, event, ...)
 	    end
 	    if (select(1,...)) == "_CustomStuff" then
 	        DoCustomStuff()
+	        TalentCheck(GetActiveTalentGroup())
 	    end
     end
 end
