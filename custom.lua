@@ -127,9 +127,9 @@ local function OnEvent(self, event, ...)
 	elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then
 	    local talent = GetActiveTalentGroup()
 	    if talent == 1 then
-            CustomStuff:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+            GnarfozCustomStuff:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		else
-		    CustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		    GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	    end
 	elseif event == "ADDON_LOADED" then
 	    if (select(1,...)) == "LockSmith" then
@@ -144,8 +144,8 @@ local function OnEvent(self, event, ...)
     end
 end
 
-local CustomStuff = CreateFrame("Frame")
-CustomStuff:SetScript("OnEvent", OnEvent)
-CustomStuff:RegisterEvent("ADDON_LOADED")
-CustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-CustomStuff:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+GnarfozCustomStuff = CreateFrame("Frame")
+GnarfozCustomStuff:SetScript("OnEvent", OnEvent)
+GnarfozCustomStuff:RegisterEvent("ADDON_LOADED")
+GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+GnarfozCustomStuff:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
