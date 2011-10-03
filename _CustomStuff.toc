@@ -1,0 +1,6 @@
+## Interface: 40000
+## Title: CustomStuff
+## Notes: Local modifications to mods and chat layout
+## OptionalDeps: EavesDrop, SharedMedia
+
+custom.lua
