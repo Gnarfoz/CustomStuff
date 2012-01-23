@@ -23,6 +23,14 @@ end]]
 --Standard-AFK-Nachricht ändern
 DEFAULT_AFK_MESSAGE = "Ich bin gerade auf'm Desktop oder AFK. Bitte ICQ/Skype/Google/MSN/Teamspeak benutzen um mich zu erreichen, oder einen Ingame-Brief schicken."
 
+--Schimpfwortfilter aus, verdammt noch mal!
+BNSetMatureLanguageFilter(false)
+SetCVar("profanityFilter", 0)
+
+--Screenshotqualität auch!
+SetCVar("screenshotFormat", "tga")
+SetCVar("screenshotQuality", 10)
+
 --PlayerPowerBarAlt verschieben
 --<Pneumatus> Ingela: /run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 160)
 
@@ -115,6 +123,15 @@ local function OnEvent(self, event, ...)
 				    SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) vorbei! >>", "RAID")
 				end
             end
+--[[        elseif (select(2, ...)) == "SPELL_DISPEL" then
+        	local dispeller = (select(5, ...))
+            local target = (select(9, ...))
+            local spellId = (select(15,...))
+			--local duration =
+			if spellId == 89435 then
+			    SendChatMessage(dispeller .. " hat Wrack von " .. target .. " dispellt.", "RAID")
+			end
+]]
         elseif (select(2, ...)) == "SPELL_CAST_SUCCESS" then
             if (select(5, ...)) == "Hooloofoo" then
                 local spellId = (select(12,...))
