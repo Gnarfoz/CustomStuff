@@ -150,7 +150,7 @@ local function OnEvent(self, event, ...)
 ]]
         end
 	elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then
-	    TalentCheck(GetActiveTalentGroup())
+	    TalentCheck(GetActiveSpecGroup())
 	elseif event == "ADDON_LOADED" then
 	    if (select(1,...)) == "LockSmith" then
 	        LockSmithButton:SetScale(0.7)
@@ -165,7 +165,7 @@ local function OnEvent(self, event, ...)
 end
 
 local function OnUpdate()
-	TalentCheck(GetActiveTalentGroup())
+	TalentCheck(GetActiveSpecGroup())
 	GnarfozCustomStuff:SetScript("OnUpdate", nil)
 end
 
