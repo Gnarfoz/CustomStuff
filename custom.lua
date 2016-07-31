@@ -37,7 +37,7 @@ SetCVar("screenshotFormat", "jpg")
 SetCVar("screenshotQuality", 10)
 
 --PlayerPowerBarAlt verschieben
---<Pneumatus> Ingela: /run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 160)
+--/run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 350)
 
 --[[local function DistractTimerBarOnEvent(self, event, unit, spell, rank, ...)
 	if unit ~= "player" or event ~= "UNIT_SPELLCAST_SUCCEEDED" or spell ~= "Distract" then return end
