@@ -15,7 +15,7 @@ WorldMapPlayerUpper:EnableMouse(false)
 WorldMapPlayerLower:EnableMouse(false)
 
 --Standard-AFK-Nachricht ändern
-DEFAULT_AFK_MESSAGE = "Ich bin gerade auf'm Desktop oder AFK. Bitte ICQ/Skype/Google/MSN/Teamspeak benutzen um mich zu erreichen, oder einen Ingame-Brief schicken."
+DEFAULT_AFK_MESSAGE = "Ich bin gerade auf'm Desktop oder AFK. Bitte in WhatsApp schreiben, oder in TeamSpeak anstupsen."
 
 --Schimpfwortfilter aus, verdammt noch mal!
 SetCVar("profanityFilter", 0)
