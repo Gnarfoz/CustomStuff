@@ -40,36 +40,9 @@ SetCVar("screenshotQuality", 10)
 --/run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 350)
 
 
---ItemLink für Item ID per Chat
---FetteItemListe={22790, 22786, 22785, 22793, 22791, 22792, 22787, 22789, 13463, 13464, 13467, 13465, 13466, 8836, 8839, 4625, 8845, 8846, 8831, 8838, 3819, 3818, 3821, 3358, 3369, 3356, 3357, 3355, 2450, 2453, 3820, 2452, 785}
---[[
-local function GetItemLinkfromItemID(itemID, editbox)
-	if editbox then editbox=editbox.chatFrame else editbox=DEFAULT_CHAT_FRAME end
-	local link = (select(2,GetItemInfo(itemID)))
-	if link then
-	    --_G["ChatFrame"..]
-    	editbox:AddMessage("ItemID "..itemID..": "..link)
-	else
-	    editbox:AddMessage("ItemID "..itemID..": No data (yet?).")
-	end
-end
 
-function CustomStuff_SlashCommandHandler(msg, editbox)
-	if tonumber(msg) then
-		GetItemLinkfromItemID(msg, editbox)
-	end
-end
 
-function CustomStuff_FetteListeParsen()
-	for k,v in ipairs(FetteItemListe) do
-		GetItemLinkfromItemID(v)
 	end
-end
-
-SLASH_CustomStuffSlashCommands1 = "/id"
-SlashCmdList["CustomStuffSlashCommands"] = CustomStuff_SlashCommandHandler
---SlashCmdList["CustomStuffSlashCommands"] = CustomStuff_FetteListeParsen
-]]
 
 
 --RoleIcons
