@@ -10,6 +10,9 @@ local function DoCustomStuff()
 	--EavesDropFrame:SetBackdropColor(1,1,1,.25)
 end]]
 
+-- Don't show uncollected toys by default
+C_ToyBox.SetUncollectedShown(false)
+
 -- Make Worldmap player arrow non-interactable
 WorldMapPlayerUpper:EnableMouse(false)
 WorldMapPlayerLower:EnableMouse(false)
