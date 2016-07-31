@@ -183,8 +183,8 @@ local function OnUpdate()
 end
 
 GnarfozCustomStuff = CreateFrame("Frame")
-GnarfozCustomStuff:SetScript("OnUpdate", OnUpdate)
+--GnarfozCustomStuff:SetScript("OnUpdate", OnUpdate)
 GnarfozCustomStuff:SetScript("OnEvent", OnEvent)
 GnarfozCustomStuff:RegisterEvent("ADDON_LOADED")
-GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+--GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 GnarfozCustomStuff:RegisterEvent("UPDATE_EXPANSION_LEVEL")
