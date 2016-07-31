@@ -88,65 +88,37 @@ SlashCmdList["CustomStuffSlashCommands"] = CustomStuff_SlashCommandHandler
 
 end
 
---local counter = 0
 
---local function OnEvent(self, event, addon)
 local function OnEvent(self, event, ...)
---[[
-local function OnEvent(self, event, ...)
-	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-	    if select(2, ...) == "SPELL_DAMAGE" then
-		    if (select(7,...) == "Bloodthirsty Ghoul") and (select(10,...) == "Pistol Barrage") and ((select(13,...)) > 0) then
-				counter=counter+1
-				SendChatMessage("Ghoule tot: "..counter, "PARTY")
-		    end
-	    end
-	end
---]]
     if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-        if (select(2, ...)) == "SPELL_AURA_APPLIED" then
-            if (select(5, ...)) == "Hooloofoo" then
-                local spellId = (select(12,...))
+		local _, evt, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags = ...
+		if evt == "SPELL_AURA_APPLIED" then
+			if sourceName == "Hooloofoo" then
+                local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
                 if spellId == 498 then
                     SendChatMessage("<< Divine Protection (-40% Magieschaden) aktiv für 10s! >>", "RAID")
                 elseif spellId == 31850 then
 				    SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) aktiv für 10s! >>", "RAID")
 				end
             end
-        elseif (select(2, ...)) == "SPELL_AURA_REMOVED" then
-            if (select(5, ...)) == "Hooloofoo" then
-                local spellId = (select(12,...))
+		elseif evt == "SPELL_AURA_REMOVED" then
+			local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
+			if sourceName == "Hooloofoo" then
                 if spellId == 498 then
                     SendChatMessage("<< Divine Protection (-40% Magieschaden) vorbei! >>", "RAID")
                 elseif spellId == 31850 then
 				    SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) vorbei! >>", "RAID")
 				end
-            end
---[[        elseif (select(2, ...)) == "SPELL_DISPEL" then
-        	local dispeller = (select(5, ...))
-            local target = (select(9, ...))
-            local spellId = (select(15,...))
-			--local duration =
-			if spellId == 89435 then
-			    SendChatMessage(dispeller .. " hat Wrack von " .. target .. " dispellt.", "RAID")
 			end
-]]
-        elseif (select(2, ...)) == "SPELL_CAST_SUCCESS" then
-            if (select(5, ...)) == "Hooloofoo" then
-                local spellId = (select(12,...))
+        elseif evt == "SPELL_CAST_SUCCESS" then
+            if sourceName == "Hooloofoo" then
+                local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
 				if spellId == 86150 then
 				    SendChatMessage("<< Guardian of Ancient Kings (-50% Schaden) aktiv für 12! >>", "RAID")
 				elseif spellId == 70940 then
 				    SendChatMessage("<< Divine Guardian (-20% Raidschaden) aktiv für 6s! >>", "RAID")
 				end
             end
---[[        elseif (select(2, ...)) == "SPELL_CAST_SUCCESS" then
-            if (select(5, ...)) == "Hooloofoo" then
-                local spellId = (select(10,...))
-				if spellId == 86150 then
-				    SendChatMessage("<< Guardian of Ancient Kings (-50% Schaden) vorbei! >>", "RAID")
-            end
-]]
         end
 	elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then
 	    TalentCheck(GetActiveSpecGroup())
