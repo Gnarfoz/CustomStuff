@@ -18,7 +18,6 @@ local function DoCustomStuff()
 	EavesDropFrame:SetHeight(((EavesDrop.db.profile["LINEHEIGHT"] + 1) * EavesDrop.db.profile["NUMLINES"])+30);
 	--EavesDropFrame:SetBackdropColor(1,1,1,.25)
 end]]
---Squeenix.modules.Border.frame:Hide()
 
 -- Make Worldmap player arrow non-interactable
 WorldMapPlayerUpper:EnableMouse(false)
