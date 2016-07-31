@@ -1,4 +1,4 @@
-## Interface: 50001
+## Interface: 70000
 ## Title: CustomStuff
 ## Notes: Local modifications to mods and chat layout
 ## OptionalDeps: EavesDrop, SharedMedia
