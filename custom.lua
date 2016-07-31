@@ -96,8 +96,8 @@ local function OnEvent(self, event, ...)
 			if sourceName == "Hooloofoo" then
                 local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
                 if spellId == 498 then
-                    SendChatMessage("<< Divine Protection (-40% Magieschaden) aktiv für 10s! >>", "RAID")
-                elseif spellId == 31850 then
+					SendChatMessage("<< Divine Protection (-20% Schaden) aktiv für 10s! >>", "RAID")
+				elseif spellId == 31850 then
 				    SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) aktiv für 10s! >>", "RAID")
 				end
             end
@@ -105,7 +105,7 @@ local function OnEvent(self, event, ...)
 			local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
 			if sourceName == "Hooloofoo" then
                 if spellId == 498 then
-                    SendChatMessage("<< Divine Protection (-40% Magieschaden) vorbei! >>", "RAID")
+					SendChatMessage("<< Divine Protection (-20% Schaden) vorbei! >>", "RAID")
                 elseif spellId == 31850 then
 				    SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) vorbei! >>", "RAID")
 				end
@@ -116,7 +116,7 @@ local function OnEvent(self, event, ...)
 				if spellId == 86150 then
 				    SendChatMessage("<< Guardian of Ancient Kings (-50% Schaden) aktiv für 12! >>", "RAID")
 				elseif spellId == 70940 then
-				    SendChatMessage("<< Divine Guardian (-20% Raidschaden) aktiv für 6s! >>", "RAID")
+				    SendChatMessage("<< Devotion Aura (-20% Magieschaden für alle) aktiv für 6s! >>", "RAID")
 				end
             end
         end
