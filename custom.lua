@@ -1,3 +1,4 @@
+--"FozMod"
 
 local function DoCustomStuff()
 --[[if IsAddOnLoaded("EavesDrop") then
