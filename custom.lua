@@ -20,6 +20,10 @@ local function DoCustomStuff()
 end]]
 --Squeenix.modules.Border.frame:Hide()
 
+-- Make Worldmap player arrow non-interactable
+WorldMapPlayerUpper:EnableMouse(false)
+WorldMapPlayerLower:EnableMouse(false)
+
 --Standard-AFK-Nachricht ändern
 DEFAULT_AFK_MESSAGE = "Ich bin gerade auf'm Desktop oder AFK. Bitte ICQ/Skype/Google/MSN/Teamspeak benutzen um mich zu erreichen, oder einen Ingame-Brief schicken."
 
