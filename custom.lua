@@ -119,9 +119,10 @@ local function OnEvent(self, event, ...)
 				    SendChatMessage("<< Devotion Aura (-20% Magieschaden für alle) aktiv für 6s! >>", "RAID")
 				end
             end
-        end
-	elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then
-	    TalentCheck(GetActiveSpecGroup())
+		end
+	elseif event == "UPDATE_EXPANSION_LEVEL" then
+		DEFAULT_CHAT_FRAME:AddMessage("Los geht's!")
+		Screenshot()
 	elseif event == "ADDON_LOADED" then
 	    if (select(1,...)) == "LockSmith" then
 	        LockSmithButton:SetScale(0.7)
@@ -136,7 +137,6 @@ local function OnEvent(self, event, ...)
 end
 
 local function OnUpdate()
-	TalentCheck(GetActiveSpecGroup())
 	GnarfozCustomStuff:SetScript("OnUpdate", nil)
 end
 
@@ -145,4 +145,4 @@ GnarfozCustomStuff:SetScript("OnUpdate", OnUpdate)
 GnarfozCustomStuff:SetScript("OnEvent", OnEvent)
 GnarfozCustomStuff:RegisterEvent("ADDON_LOADED")
 GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-GnarfozCustomStuff:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+GnarfozCustomStuff:RegisterEvent("UPDATE_EXPANSION_LEVEL")
