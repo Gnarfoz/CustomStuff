@@ -27,7 +27,7 @@ DEFAULT_AFK_MESSAGE = "Ich bin gerade auf'm Desktop oder AFK. Bitte ICQ/Skype/Go
 SetCVar("profanityFilter", 0)
 
 --Screenshotqualität auch!
-SetCVar("screenshotFormat", "tga")
+SetCVar("screenshotFormat", "jpg")
 SetCVar("screenshotQuality", 10)
 
 --PlayerPowerBarAlt verschieben
