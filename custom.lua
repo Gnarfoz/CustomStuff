@@ -10,6 +10,9 @@ local function DoCustomStuff()
 	--EavesDropFrame:SetBackdropColor(1,1,1,.25)
 end]]
 
+--Legion reverse bag sort
+--SetSortBagsRightToLeft(true)
+
 -- Don't show uncollected toys by default
 C_ToyBox.SetUncollectedShown(false)
 
