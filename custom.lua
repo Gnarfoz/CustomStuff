@@ -91,6 +91,7 @@ do --German raidicons (thx nevcairiel)
 	end
 end --end raidicons
 
+end --end DoCustomStuff()
 
 --RoleIcons
 local function roleIconsInit()
