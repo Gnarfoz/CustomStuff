@@ -39,8 +39,31 @@ SetCVar("screenshotQuality", 10)
 --PlayerPowerBarAlt verschieben
 --/run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 350)
 
+-- Talentless 7.0 (thx nebula)
+do
+	local gearsets = {}
+	gearsets[66] = "Prot"
+	gearsets[70] = "Multi"
 
+	local function equipSet()
+		if not CanUseEquipmentSets() or not IsLoggedIn() then return end
 
+		local tree = GetSpecialization()
+		if not tree or tree == 0 then return end
+
+		local id = (GetSpecializationInfo(tree))
+		
+		if gearsets[id] then
+			EquipmentManager_EquipSet(gearsets[id])
+		end
+	end
+	
+	local frame = CreateFrame("Frame")
+	frame:SetScript("OnEvent", function()
+			C_Timer.After(1, equipSet)
+	end)
+	--frame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+end --end Talentless
 
 	end
 
