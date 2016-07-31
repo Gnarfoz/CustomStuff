@@ -17,6 +17,15 @@ C_ToyBox.SetUncollectedShown(false)
 WorldMapPlayerUpper:EnableMouse(false)
 WorldMapPlayerLower:EnableMouse(false)
 
+-- Remove the interface options cancel button
+InterfaceOptionsFrameCancel:Hide()
+InterfaceOptionsFrameOkay:SetAllPoints(InterfaceOptionsFrameCancel)
+
+-- Make clicking cancel the same as clicking okay
+InterfaceOptionsFrameCancel:SetScript("OnClick", function()
+	InterfaceOptionsFrameOkay:Click()
+end)
+
 --Standard-AFK-Nachricht ändern
 DEFAULT_AFK_MESSAGE = "Ich bin gerade auf'm Desktop oder AFK. Bitte in WhatsApp schreiben, oder in TeamSpeak anstupsen."
 
