@@ -24,7 +24,6 @@ end]]
 DEFAULT_AFK_MESSAGE = "Ich bin gerade auf'm Desktop oder AFK. Bitte ICQ/Skype/Google/MSN/Teamspeak benutzen um mich zu erreichen, oder einen Ingame-Brief schicken."
 
 --Schimpfwortfilter aus, verdammt noch mal!
-BNSetMatureLanguageFilter(false)
 SetCVar("profanityFilter", 0)
 
 --Screenshotqualität auch!
