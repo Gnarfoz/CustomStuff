@@ -27,12 +27,6 @@ SetCVar("screenshotQuality", 10)
 --PlayerPowerBarAlt verschieben
 --<Pneumatus> Ingela: /run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 160)
 
---Gildenachievements anschalten
---[[
-GetGuildLevelEnabled = function() return true end
-if AchivementFrame_SetTabs then AchivementFrame_SetTabs() end
-]]
-
 --[[local function DistractTimerBarOnEvent(self, event, unit, spell, rank, ...)
 	if unit ~= "player" or event ~= "UNIT_SPELLCAST_SUCCEEDED" or spell ~= "Distract" then return end
 --	DEFAULT_CHAT_FRAME:AddMessage(event.." "..unit.." "..spell)
