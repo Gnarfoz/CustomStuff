@@ -39,21 +39,6 @@ SetCVar("screenshotQuality", 10)
 --PlayerPowerBarAlt verschieben
 --/run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 350)
 
---[[local function DistractTimerBarOnEvent(self, event, unit, spell, rank, ...)
-	if unit ~= "player" or event ~= "UNIT_SPELLCAST_SUCCEEDED" or spell ~= "Distract" then return end
---	DEFAULT_CHAT_FRAME:AddMessage(event.." "..unit.." "..spell)
-	SendAddonMessage("LVBM NSP","STSBT 10 ChatFrame Abgelenkt...","RAID")
-	SendAddonMessage("BigWigs","BWCustomBar 10 Abgelenkt...","RAID")
-end
-
---macro zum abbrechen:
---/cast Distract
---/run if GetMouseButtonClicked() == "RightButton" then local e,s="RAID",SendAddonMessage s("LVBM NSP","ENDSBT Abgelenkt...",e) s("BigWigs","BWCustomBar 0 Abgelenkt...",e) end
-
-local DistractTimerBarFrame = CreateFrame("Frame")
---DistractTimerBarFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-DistractTimerBarFrame:SetScript("OnEvent", DistractTimerBarOnEvent)
-]]
 
 --ItemLink für Item ID per Chat
 --FetteItemListe={22790, 22786, 22785, 22793, 22791, 22792, 22787, 22789, 13463, 13464, 13467, 13465, 13466, 8836, 8839, 4625, 8845, 8846, 8831, 8838, 3819, 3818, 3821, 3358, 3369, 3356, 3357, 3355, 2450, 2453, 3820, 2452, 785}
