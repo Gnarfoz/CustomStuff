@@ -67,7 +67,7 @@ do
 		end
 		
 		if gearsets[id] then
-			print("Spec: "..id..", switching to equipment set: "..gearsets[id])
+			--print("Switching to equipment set: "..gearsets[id])
 			EquipmentManager_EquipSet(gearsets[id])
 		end
 	end
