@@ -63,10 +63,11 @@ do
 	end
 	
 	local frame = CreateFrame("Frame")
-	frame:SetScript("OnEvent", function()
+	frame:SetScript("OnEvent", function(self, event, unit)
+			if unit ~= "player" then return end
 			C_Timer.After(1, equipSet)
 	end)
-	--frame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+	frame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 end --end Talentless
 
 
