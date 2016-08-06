@@ -45,6 +45,7 @@ SetCVar("screenshotQuality", 10)
 
 -- Talentless 7.0 (thx nebula)
 do
+	local prevspec = 0
 	local gearsets = {}
 	gearsets[66] = "Prot"
 	gearsets[70] = "Multi"
@@ -56,6 +57,14 @@ do
 		if not tree or tree == 0 then return end
 
 		local id = (GetSpecializationInfo(tree))
+		
+		if id == prevspec then 
+			--print("Spec unchanged")
+			return
+		else
+			--print("New spec: "..id)
+			prevspec = id
+		end
 		
 		if gearsets[id] then
 			print("Spec: "..id..", switching to equipment set: "..gearsets[id])
