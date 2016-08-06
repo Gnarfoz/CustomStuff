@@ -58,6 +58,7 @@ do
 		local id = (GetSpecializationInfo(tree))
 		
 		if gearsets[id] then
+			print("Spec: "..id..", switching to equipment set: "..gearsets[id])
 			EquipmentManager_EquipSet(gearsets[id])
 		end
 	end
@@ -65,6 +66,7 @@ do
 	local frame = CreateFrame("Frame")
 	frame:SetScript("OnEvent", function(self, event, unit)
 			if unit ~= "player" then return end
+			print("P_S_C fired")
 			C_Timer.After(1, equipSet)
 	end)
 	frame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
