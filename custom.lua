@@ -47,6 +47,7 @@ SetCVar("screenshotQuality", 10)
 do
 	local prevspec = 0
 	local gearsets = {}
+	gearsets[66] = "Holy"
 	gearsets[66] = "Prot"
 	gearsets[70] = "Multi"
 
