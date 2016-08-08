@@ -83,6 +83,21 @@ do
 end --end Talentless
 
 
+do --marker keybinds
+	for i=0,8 do
+		local button = CreateFrame("Button", "GnarfozCustomStuffMarker"..i, nil, "SecureActionButtonTemplate")
+		button:SetAttribute("type", "macro")
+		button:SetAttribute("macrotext", "/tm "..i.."\n/wm [mod:ctrl] "..i.."\n/cwm [mod:alt] "..i)
+		button:RegisterForClicks("AnyDown")
+		if i == 0 then
+			SetOverrideBindingClick(_G["GnarfozCustomStuffMarker"..i], false, "NUMPAD9",   "GnarfozCustomStuffMarker"..i)
+		else
+			SetOverrideBindingClick(_G["GnarfozCustomStuffMarker"..i], false, "NUMPAD"..i, "GnarfozCustomStuffMarker"..i)
+		end
+	end
+end --end world markers
+
+
 do --German raidicons (thx nevcairiel)
 	local raidIcons = {
 		["%{[sS][tT][eE][rR][nN]%}"] = "{rt1}",
