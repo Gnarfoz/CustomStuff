@@ -44,12 +44,13 @@ SetCVar("screenshotQuality", 10)
 --/run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 350)
 
 -- Talentless 7.0 (thx nebula)
+--[[
 do
 	local prevspec = 0
 	local gearsets = {}
 	gearsets[65] = "Holy"
 	gearsets[66] = "Prot"
-	gearsets[70] = "Multi"
+	gearsets[70] = "Ret"
 
 	local function equipSet()
 		if not CanUseEquipmentSets() or not IsLoggedIn() then return end
@@ -80,7 +81,7 @@ do
 	end)
 	frame:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
 end --end Talentless
-
+]]
 
 do --marker keybinds
 	for i=0,8 do
