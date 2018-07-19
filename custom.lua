@@ -1,16 +1,6 @@
 --"FozMod"
 
 local function DoCustomStuff()
---[[if IsAddOnLoaded("EavesDrop") then
-	EavesDropFrame:SetBackdrop(nil)
-	EavesDropTopBar:Hide()
-	EavesDropBottomBar:Hide()
-	EavesDropFramePlayerText:Hide()
-	EavesDropFrameTargetText:Hide()
-	EavesDropFrame:SetHeight(((EavesDrop.db.profile["LINEHEIGHT"] + 1) * EavesDrop.db.profile["NUMLINES"])+30);
-	--EavesDropFrame:SetBackdropColor(1,1,1,.25)
-end]]
-
 --Legion reverse bag sort
 --SetSortBagsRightToLeft(true)
 
