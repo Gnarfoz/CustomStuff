@@ -1,4 +1,4 @@
-## Interface: 70000
+## Interface: 80000
 ## Title: CustomStuff
 ## Notes: Local modifications to mods and chat layout
 ## OptionalDeps: SharedMedia
