@@ -49,7 +49,12 @@ CharacterStatsPane.statsFramePool.resetterFunc =
 	end
 table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED"})
 
-
+-- move the buff frame --stolen from NevMod
+BuffFrame:ClearAllPoints()
+BuffFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -5, -30)
+BuffFrame.__SetPoint = BuffFrame.SetPoint
+hooksecurefunc(BuffFrame, "SetPoint", function() BuffFrame:ClearAllPoints() BuffFrame:__SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -5, -30) end)
+--BuffFrame:SetFrameStrata("MEDIUM")
 
 do --marker keybinds
 	for i=0,8 do
