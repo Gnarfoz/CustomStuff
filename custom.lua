@@ -29,45 +29,7 @@ SetCVar("screenshotQuality", 10)
 --PlayerPowerBarAlt verschieben
 --/run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 350)
 
--- Talentless 7.0 (thx nebula)
---[[
-do
-	local prevspec = 0
-	local gearsets = {}
-	gearsets[65] = "Holy"
-	gearsets[66] = "Prot"
-	gearsets[70] = "Ret"
-
-	local function equipSet()
-		if not CanUseEquipmentSets() or not IsLoggedIn() then return end
-
-		local tree = GetSpecialization()
-		if not tree or tree == 0 then return end
-
-		local id = (GetSpecializationInfo(tree))
-		
-		if id == prevspec then 
-			--print("Spec unchanged")
-			return
-		else
-			--print("New spec: "..id)
-			prevspec = id
-		end
-		
-		if gearsets[id] then
-			--print("Switching to equipment set: "..gearsets[id])
-			EquipmentManager_EquipSet(gearsets[id])
-		end
 	end
-	
-	local frame = CreateFrame("Frame")
-	frame:SetScript("OnEvent", function(self, event, unit)
-			--print("P_S_C fired")
-			C_Timer.After(1, equipSet)
-	end)
-	frame:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
-end --end Talentless
-]]
 
 do --marker keybinds
 	for i=0,8 do
