@@ -98,6 +98,24 @@ end --end raidicons
 
 end --end DoCustomStuff()
 
+-- auto-sell all junk --stolen from NevMod, tekJunkSeller
+local function AutoSell()
+	for bag=0,4 do
+		for slot=0,GetContainerNumSlots(bag) do
+			local link = GetContainerItemLink(bag, slot)
+			if link and select(3, GetItemInfo(link)) == 0 then
+				if ShowMerchantSellCursor then
+					ShowMerchantSellCursor(1)
+				else
+					SetCursor("BUY_CURSOR")
+				end
+				UseContainerItem(bag, slot)
+			end
+		end
+	end
+	ResetCursor()
+end --end auto-sell
+
 --RoleIcons
 local function roleIconsInit()
 	local roleIcons = setmetatable({}, { __index = function(t,i)
@@ -165,6 +183,8 @@ local function OnEvent(self, event, ...)
 				end
             end
 		end
+	elseif event == "MERCHANT_SHOW" then
+		AutoSell()
 	elseif event == "UPDATE_EXPANSION_LEVEL" then
 		DEFAULT_CHAT_FRAME:AddMessage("Los geht's!")
 		Screenshot()
@@ -192,5 +212,6 @@ GnarfozCustomStuff = CreateFrame("Frame")
 --GnarfozCustomStuff:SetScript("OnUpdate", OnUpdate)
 GnarfozCustomStuff:SetScript("OnEvent", OnEvent)
 GnarfozCustomStuff:RegisterEvent("ADDON_LOADED")
+GnarfozCustomStuff:RegisterEvent("MERCHANT_SHOW")
 --GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 GnarfozCustomStuff:RegisterEvent("UPDATE_EXPANSION_LEVEL")
