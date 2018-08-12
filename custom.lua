@@ -152,6 +152,15 @@ local function roleIconsInit()
 end
 
 
+-- move the digsite progress bar
+local function moveDigsiteProgressBar()
+	ArcheologyDigsiteProgressBar:ClearAllPoints()
+	ArcheologyDigsiteProgressBar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 280)
+	ArcheologyDigsiteProgressBar.__SetPoint = ArcheologyDigsiteProgressBar.SetPoint
+	hooksecurefunc(ArcheologyDigsiteProgressBar, "SetPoint", function() ArcheologyDigsiteProgressBar:ClearAllPoints() ArcheologyDigsiteProgressBar:__SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 280) end)
+end -- end digsite progress bar
+
+
 local function OnEvent(self, event, ...)
     if event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		local _, evt, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags = ...
@@ -197,8 +206,11 @@ local function OnEvent(self, event, ...)
 	    end
 --[[		if (select(1,...)) == "Blizzard_RaidUI" then
 			roleIconsInit()
-		end
-]]	    if (select(1,...)) == "_CustomStuff" then
+		end ]]
+	    if (select(1,...)) == "Blizzard_ArchaeologyUI" then
+	        moveDigsiteProgressBar()
+	    end
+		if (select(1,...)) == "_CustomStuff" then
 	        DoCustomStuff()
 	    end
     end
