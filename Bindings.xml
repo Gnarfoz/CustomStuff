@@ -1,0 +1,5 @@
+<Bindings>
+	<Binding name="Summon Random Favorite Mount" category="Gnarfoz Custom Stuff">
+		C_MountJournal.SummonByID(0)
+	</Binding>
+</Bindings>
