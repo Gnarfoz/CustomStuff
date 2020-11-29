@@ -64,8 +64,10 @@ do --marker keybinds
 		button:RegisterForClicks("AnyDown")
 		if i == 0 then
 			SetOverrideBindingClick(_G["GnarfozCustomStuffMarker"..i], false, "NUMPAD9",   "GnarfozCustomStuffMarker"..i)
+			SetOverrideBindingClick(_G["GnarfozCustomStuffMarker"..i], false, "F9",        "GnarfozCustomStuffMarker"..i)
 		else
 			SetOverrideBindingClick(_G["GnarfozCustomStuffMarker"..i], false, "NUMPAD"..i, "GnarfozCustomStuffMarker"..i)
+			SetOverrideBindingClick(_G["GnarfozCustomStuffMarker"..i], false, "F"..i,      "GnarfozCustomStuffMarker"..i)
 		end
 	end
 end --end world markers
