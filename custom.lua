@@ -1,20 +1,18 @@
 --"FozMod"
 
-local function DoCustomStuff()
---Legion reverse bag sort
---SetSortBagsRightToLeft(true)
+-- WoW 10 compat
+local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
+local GetContainerItemLink = C_Container and C_Container.GetContainerItemLink or GetContainerItemLink
+local UseContainerItem = C_Container and C_Container.UseContainerItem or UseContainerItem
+
+
+local function doCustomStuff()
+--Reverse bag sort
+--C_Container.SetSortBagsRightToLeft(true)
+--C_Container.SetInsertItemsLeftToRight(false)
 
 -- Don't show uncollected toys by default
 C_ToyBox.SetUncollectedShown(false)
-
--- Remove the interface options cancel button
-InterfaceOptionsFrameCancel:Hide()
-InterfaceOptionsFrameOkay:SetAllPoints(InterfaceOptionsFrameCancel)
-
--- Make clicking cancel the same as clicking okay
-InterfaceOptionsFrameCancel:SetScript("OnClick", function()
-	InterfaceOptionsFrameOkay:Click()
-end)
 
 --Standard-AFK-Nachricht ändern
 DEFAULT_AFK_MESSAGE = "Ich bin gerade auf'm Desktop oder AFK. Bitte in WhatsApp schreiben, oder in TeamSpeak anstupsen."
@@ -26,8 +24,18 @@ SetCVar("profanityFilter", 0)
 SetCVar("screenshotFormat", "jpg")
 SetCVar("screenshotQuality", 10)
 
---PlayerPowerBarAlt verschieben
---/run PlayerPowerBarAlt:ClearAllPoints(); PlayerPowerBarAlt:SetPoint("BOTTOM", UIParent, -200, 350)
+--GossipFrame.GreetingPanel.ScrollBox.ScrollTarget:GetChildren().GreetingText:SetFont(GossipFrame.GreetingPanel.ScrollBox.ScrollTarget:GetChildren().GreetingText:GetFont(), 14)
+QuestInfoDescriptionText:SetFont(QuestInfoDescriptionText:GetFont(), 16)
+QuestInfoObjectivesText:SetFont(QuestInfoObjectivesText:GetFont(), 15)
+QuestInfoRewardText:SetFont(QuestInfoRewardText:GetFont(), 15)
+QuestProgressText:SetFont(QuestProgressText:GetFont(), 15)
+
+-- habits die hard
+SLASH_ACP1 = "/addons"
+SLASH_ACP2 = "/acp"
+SlashCmdList["ACP"] = function(input)
+    ShowUIPanel(AddonList)
+end
 
 -- add the movement speed to the character stat sheet --stolen from NevMod
 function PaperDollFrame_SetMovementSpeed(statFrame, unit)
@@ -49,12 +57,13 @@ CharacterStatsPane.statsFramePool.resetterFunc =
 	end
 table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED"})
 
--- move the buff frame --stolen from NevMod
-BuffFrame:ClearAllPoints()
-BuffFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -5, -30)
-BuffFrame.__SetPoint = BuffFrame.SetPoint
-hooksecurefunc(BuffFrame, "SetPoint", function() BuffFrame:ClearAllPoints() BuffFrame:__SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -5, -30) end)
---BuffFrame:SetFrameStrata("MEDIUM")
+-- move top center widget
+UIWidgetTopCenterContainerFrame:ClearAllPoints()
+UIWidgetTopCenterContainerFrame:SetPoint("TOP",UIParent,"TOP",0,-60)
+
+-- move event banner
+EventToastManagerFrame:ClearAllPoints()
+EventToastManagerFrame:SetPoint("TOP",UIParent,"TOP",0,-140)
 
 do --marker keybinds
 	for i=0,8 do
@@ -100,59 +109,18 @@ end --end raidicons
 
 end --end DoCustomStuff()
 
--- auto-sell all junk --stolen from NevMod, tekJunkSeller
-local function AutoSell()
-	for bag=0,4 do
-		for slot=0,GetContainerNumSlots(bag) do
-			local link = GetContainerItemLink(bag, slot)
-			if link and select(3, GetItemInfo(link)) == 0 then
-				if ShowMerchantSellCursor then
-					ShowMerchantSellCursor(1)
-				else
-					SetCursor("BUY_CURSOR")
-				end
-				UseContainerItem(bag, slot)
-			end
-		end
-	end
-	ResetCursor()
-end --end auto-sell
-
---RoleIcons
-local function roleIconsInit()
-	local roleIcons = setmetatable({}, { __index = function(t,i)
-			local parent = _G["RaidGroupButton"..i]
-			local icon = CreateFrame("Frame", nil, parent)
-			icon:SetSize(14, 14)
-			icon:SetPoint("RIGHT", parent.subframes.level, "LEFT", 2, 0)
-			RaiseFrameLevel(icon)
-	
-			icon.texture = icon:CreateTexture(nil, "ARTWORK")
-			icon.texture:SetAllPoints()
-			icon.texture:SetTexture("Interface\\LFGFrame\\UI-LFG-ICON-PORTRAITROLES")
-			icon:Hide()
-	
-			t[i] = icon
-			return icon
-	end })
-	
-	hooksecurefunc("RaidGroupFrame_Update", function()
-			for i = 1, GetNumGroupMembers() do
-					local button = _G["RaidGroupButton"..i]
-					if button and button.subframes then --make sure the raid button is set up
-							local icon = roleIcons[i]
-							local role = UnitGroupRolesAssigned("raid"..i)
-							if role and role ~= "NONE" then
-									icon.texture:SetTexCoord(GetTexCoordsForRoleSmallCircle(role))
-									icon:Show()
-							else
-									icon:Hide()
-							end
-					end
-			end
-	end)
+-- deprecated
+local function GetTexCoordsForRoleSmallCircle(role)
+    if ( role == "TANK" ) then
+        return 0, 19/64, 22/64, 41/64;
+    elseif ( role == "HEALER" ) then
+        return 20/64, 39/64, 1/64, 20/64;
+    elseif ( role == "DAMAGER" ) then
+        return 20/64, 39/64, 22/64, 41/64;
+    else
+        error("Unknown role: "..tostring(role));
+    end
 end
-
 
 -- move the digsite progress bar
 local function moveDigsiteProgressBar()
@@ -195,25 +163,23 @@ local function OnEvent(self, event, ...)
             end
 		end
 	elseif event == "MERCHANT_SHOW" then
-		AutoSell()
+        if C_MerchantFrame.GetNumJunkItems() > 0 then
+            C_MerchantFrame.SellAllJunkItems()
+        end
+    elseif event == "GOSSIP_SHOW" then
+        --GossipFrame.GreetingPanel.ScrollBox.ScrollTarget:GetChildren().GreetingText:SetFont(GossipFrame.GreetingPanel.ScrollBox.ScrollTarget:GetChildren().GreetingText:GetFont(), 14)
+        GnarfozCustomStuff:UnregisterEvent("GOSSIP_SHOW")
 	elseif event == "UPDATE_EXPANSION_LEVEL" then
 		DEFAULT_CHAT_FRAME:AddMessage("Los geht's!")
 		Screenshot()
 	elseif event == "ADDON_LOADED" then
-	    if (select(1,...)) == "LockSmith" then
-	        LockSmithButton:SetScale(0.7)
-	    end
-	    if (select(1,...)) == "CrowBar" then
-	        CrowBarButton:SetScale(0.7)
-	    end
---[[		if (select(1,...)) == "Blizzard_RaidUI" then
-			roleIconsInit()
-		end ]]
-	    if (select(1,...)) == "Blizzard_ArchaeologyUI" then
+	    if     (select(1,...)) == "Blizzard_ArchaeologyUI" then
 	        moveDigsiteProgressBar()
-	    end
-		if (select(1,...)) == "_CustomStuff" then
-	        DoCustomStuff()
+		elseif (select(1,...)) == "Details" then
+            --Undo AddonMemoryUsage hook
+	        _G["UpdateAddOnMemoryUsage"] = Details.UpdateAddOnMemoryUsage_Original
+		elseif (select(1,...)) == "_CustomStuff" then
+	        doCustomStuff()
 	    end
     end
 end
@@ -227,5 +193,6 @@ GnarfozCustomStuff = CreateFrame("Frame")
 GnarfozCustomStuff:SetScript("OnEvent", OnEvent)
 GnarfozCustomStuff:RegisterEvent("ADDON_LOADED")
 GnarfozCustomStuff:RegisterEvent("MERCHANT_SHOW")
---GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+GnarfozCustomStuff:RegisterEvent("GOSSIP_SHOW")
+--GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED") -- use RegisterUnitEvent instead
 GnarfozCustomStuff:RegisterEvent("UPDATE_EXPANSION_LEVEL")
