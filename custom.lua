@@ -11,6 +11,9 @@ local function doCustomStuff()
 --C_Container.SetSortBagsRightToLeft(true)
 --C_Container.SetInsertItemsLeftToRight(false)
 
+-- Hide Blizzard status bar
+MainStatusTrackingBarContainer:SetParent(GnarfozCustomStuffHidden)
+
 -- Don't show uncollected toys by default
 C_ToyBox.SetUncollectedShown(false)
 
@@ -111,15 +114,15 @@ end --end DoCustomStuff()
 
 -- deprecated
 local function GetTexCoordsForRoleSmallCircle(role)
-    if ( role == "TANK" ) then
-        return 0, 19/64, 22/64, 41/64;
-    elseif ( role == "HEALER" ) then
-        return 20/64, 39/64, 1/64, 20/64;
-    elseif ( role == "DAMAGER" ) then
-        return 20/64, 39/64, 22/64, 41/64;
-    else
-        error("Unknown role: "..tostring(role));
-    end
+	if ( role == "TANK" ) then
+		return 0, 19/64, 22/64, 41/64;
+	elseif ( role == "HEALER" ) then
+		return 20/64, 39/64, 1/64, 20/64;
+	elseif ( role == "DAMAGER" ) then
+		return 20/64, 39/64, 22/64, 41/64;
+	else
+		error("Unknown role: "..tostring(role));
+	end
 end
 
 -- move the digsite progress bar
@@ -132,56 +135,56 @@ end -- end digsite progress bar
 
 
 local function OnEvent(self, event, ...)
-    if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		local _, evt, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags = ...
 		if evt == "SPELL_AURA_APPLIED" then
 			if sourceName == "Hooloofoo" then
-                local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
-                if spellId == 498 then
+				local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
+				if spellId == 498 then
 					SendChatMessage("<< Divine Protection (-20% Schaden) aktiv für 10s! >>", "RAID")
 				elseif spellId == 31850 then
-				    SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) aktiv für 10s! >>", "RAID")
+					SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) aktiv für 10s! >>", "RAID")
 				end
-            end
+			end
 		elseif evt == "SPELL_AURA_REMOVED" then
 			local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
 			if sourceName == "Hooloofoo" then
-                if spellId == 498 then
+				if spellId == 498 then
 					SendChatMessage("<< Divine Protection (-20% Schaden) vorbei! >>", "RAID")
-                elseif spellId == 31850 then
-				    SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) vorbei! >>", "RAID")
+				elseif spellId == 31850 then
+					SendChatMessage("<< Ardent Defender (-20% Schaden, 1 Extra-Leben) vorbei! >>", "RAID")
 				end
 			end
-        elseif evt == "SPELL_CAST_SUCCESS" then
-            if sourceName == "Hooloofoo" then
-                local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
+		elseif evt == "SPELL_CAST_SUCCESS" then
+			if sourceName == "Hooloofoo" then
+				local _, _, _, _, _, _, _, _, _, _, _, spellId = ...
 				if spellId == 86150 then
-				    SendChatMessage("<< Guardian of Ancient Kings (-50% Schaden) aktiv für 12! >>", "RAID")
+					SendChatMessage("<< Guardian of Ancient Kings (-50% Schaden) aktiv für 12! >>", "RAID")
 				elseif spellId == 70940 then
-				    SendChatMessage("<< Devotion Aura (-20% Magieschaden für alle) aktiv für 6s! >>", "RAID")
+					SendChatMessage("<< Devotion Aura (-20% Magieschaden für alle) aktiv für 6s! >>", "RAID")
 				end
-            end
+			end
 		end
 	elseif event == "MERCHANT_SHOW" then
-        if C_MerchantFrame.GetNumJunkItems() > 0 then
-            C_MerchantFrame.SellAllJunkItems()
-        end
-    elseif event == "GOSSIP_SHOW" then
-        --GossipFrame.GreetingPanel.ScrollBox.ScrollTarget:GetChildren().GreetingText:SetFont(GossipFrame.GreetingPanel.ScrollBox.ScrollTarget:GetChildren().GreetingText:GetFont(), 14)
-        GnarfozCustomStuff:UnregisterEvent("GOSSIP_SHOW")
+		if C_MerchantFrame.GetNumJunkItems() > 0 then
+			C_MerchantFrame.SellAllJunkItems()
+		end
+	elseif event == "GOSSIP_SHOW" then
+		--GossipFrame.GreetingPanel.ScrollBox.ScrollTarget:GetChildren().GreetingText:SetFont(GossipFrame.GreetingPanel.ScrollBox.ScrollTarget:GetChildren().GreetingText:GetFont(), 14)
+		GnarfozCustomStuff:UnregisterEvent("GOSSIP_SHOW")
 	elseif event == "UPDATE_EXPANSION_LEVEL" then
 		DEFAULT_CHAT_FRAME:AddMessage("Los geht's!")
 		Screenshot()
 	elseif event == "ADDON_LOADED" then
-	    if     (select(1,...)) == "Blizzard_ArchaeologyUI" then
-	        moveDigsiteProgressBar()
+		if (select(1,...)) == "Blizzard_ArchaeologyUI" then
+			moveDigsiteProgressBar()
 		elseif (select(1,...)) == "Details" then
-            --Undo AddonMemoryUsage hook
-	        _G["UpdateAddOnMemoryUsage"] = Details.UpdateAddOnMemoryUsage_Original
+			--Undo AddonMemoryUsage hook
+			_G["UpdateAddOnMemoryUsage"] = Details.UpdateAddOnMemoryUsage_Original
 		elseif (select(1,...)) == "_CustomStuff" then
-	        doCustomStuff()
-	    end
-    end
+			doCustomStuff()
+		end
+	end
 end
 
 local function OnUpdate()
@@ -189,6 +192,8 @@ local function OnUpdate()
 end
 
 GnarfozCustomStuff = CreateFrame("Frame")
+GnarfozCustomStuffHidden = CreateFrame("Frame")
+GnarfozCustomStuffHidden:Hide()
 --GnarfozCustomStuff:SetScript("OnUpdate", OnUpdate)
 GnarfozCustomStuff:SetScript("OnEvent", OnEvent)
 GnarfozCustomStuff:RegisterEvent("ADDON_LOADED")
@@ -196,3 +201,4 @@ GnarfozCustomStuff:RegisterEvent("MERCHANT_SHOW")
 GnarfozCustomStuff:RegisterEvent("GOSSIP_SHOW")
 --GnarfozCustomStuff:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED") -- use RegisterUnitEvent instead
 GnarfozCustomStuff:RegisterEvent("UPDATE_EXPANSION_LEVEL")
+GnarfozCustomStuff:RegisterEvent("INCOMING_SUMMON_CHANGED")
