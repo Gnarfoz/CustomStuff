@@ -14,6 +14,9 @@ local function doCustomStuff()
 -- Hide Blizzard status bar
 MainStatusTrackingBarContainer:SetParent(GnarfozCustomStuffHidden)
 
+-- Hide heroic world tier indicator
+UIWidgetBelowMinimapContainerFrame:SetParent(GnarfozCustomStuffHidden)
+
 -- Don't show uncollected toys by default
 C_ToyBox.SetUncollectedShown(false)
 
@@ -39,6 +42,12 @@ SLASH_ACP2 = "/acp"
 SlashCmdList["ACP"] = function(input)
     ShowUIPanel(AddonList)
 end
+
+SLASH_RELOAD1 = "/rl"
+SlashCmdList["rl"] = function(input)
+    ReloadUI()
+end
+
 
 -- add the movement speed to the character stat sheet --stolen from NevMod
 function PaperDollFrame_SetMovementSpeed(statFrame, unit)
