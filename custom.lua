@@ -40,12 +40,12 @@ QuestProgressText:SetFont(QuestProgressText:GetFont(), 15)
 SLASH_ACP1 = "/addons"
 SLASH_ACP2 = "/acp"
 SlashCmdList["ACP"] = function(input)
-    ShowUIPanel(AddonList)
+	ShowUIPanel(AddonList)
 end
 
 SLASH_RELOAD1 = "/rl"
-SlashCmdList["rl"] = function(input)
-    ReloadUI()
+SlashCmdList["RELOAD"] = function(input)
+	ReloadUI()
 end
 
 
