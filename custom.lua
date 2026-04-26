@@ -50,6 +50,7 @@ end
 
 
 -- add the movement speed to the character stat sheet --stolen from NevMod
+--[[ -- dead in 12.0
 function PaperDollFrame_SetMovementSpeed(statFrame, unit)
 	statFrame.wasSwimming = nil
 	statFrame.unit = unit
@@ -68,6 +69,7 @@ CharacterStatsPane.statsFramePool.resetterFunc =
 		FramePool_HideAndClearAnchors(pool, frame)
 	end
 table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED"})
+--]]
 
 -- move top center widget
 UIWidgetTopCenterContainerFrame:ClearAllPoints()
